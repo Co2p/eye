@@ -1,0 +1,52 @@
+body {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  cursor: none;
+  overflow: hidden;
+}
+
+#main {
+  background: radial-gradient(#339437, #2c714a);
+  height: 100%;
+}
+
+.lock {
+  z-index: 100;
+  width: 100%;
+  box-shadow: 0px 2px 29px #000;
+  position: absolute;
+}
+
+#lock1 {
+  background: linear-gradient(#272d21, #2f4d29);
+  height: 55%;
+}
+
+#lock2 {
+  background: linear-gradient(#2f4d29, #272d21);
+  height: 45%;
+  bottom: 0;
+}
+
+#iris {
+  z-index: 0;
+  background: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+}
+
+#shine {
+    height: 30px;
+    width: 30px;
+    background: rgba(255, 255, 255, 0.42);
+    float: right;
+    margin: 15px;
+    border-radius: 15px;
+}
