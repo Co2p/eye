@@ -1,6 +1,6 @@
 var lockPos = 40;
 var oldstamp = 0;
-const irisSize = 300;
+var irisSize = 300;
 
 $("body").on("mousemove", (event) => {
   let x = event.pageX;
@@ -13,17 +13,16 @@ $("body").on("mousemove", (event) => {
 $("body").on("scroll touchmove mousewheel", (event) => {
   const stamp = event.timeStamp
   const size = $("#iris").css("height");
-  $( "#iris" ).animate({ "height": size + 1, "width": size + 1}, 500);
-
-  if ((stamp - oldstamp) > 1000) {
-    console.log(event.timeStamp);
-    oldstamp = stamp;
-    if (event.originalEvent.wheelDelta >= 0) {
-      $( "#iris" ).animate({ "height": size + 1, "width": size + 1}, 500);
-    } else {
-      $( "#iris" ).animate({ "height": size - 1, "width": size - 1}, 500);
-    }
+  //if (stamp - oldstamp > 2000) {
+  oldstamp = stamp
+  if (event.originalEvent.wheelDelta >= 0) {
+    irisSize = irisSize + 1;
+  } else {
+    irisSize = irisSize - 1;
   }
+  console.log(irisSize);
+  $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px"}, 20);
+  //}
 });
 
 $("body").on("click", (event) => {
