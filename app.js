@@ -1,4 +1,3 @@
-var lockPos = 40;
 var oldstamp = 0;
 var irisSize = 300;
 
@@ -13,20 +12,26 @@ $("body").on("mousemove", (event) => {
 $("body").on("scroll touchmove mousewheel", (event) => {
   const stamp = event.timeStamp
   const size = $("#iris").css("height");
-  //if (stamp - oldstamp > 2000) {
+  if (stamp - oldstamp > 20) {
   oldstamp = stamp
   if (event.originalEvent.wheelDelta >= 0) {
-    irisSize = irisSize + 1;
+    irisSize = irisSize + 10;
   } else {
-    irisSize = irisSize - 1;
+    irisSize = irisSize - 10;
   }
   console.log(irisSize);
   $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px"}, 20);
-  //}
+  }
+});
+
+$("body").on("mousedown", (event) => {
+  console.log(event);
+  $( "#lock1" ).animate({"height" : 55 + "%"}, 500);
+  $( "#lock2" ).animate({"height" : 45 + "%"}, 500);
 });
 
 $("body").on("click", (event) => {
-  $( "#lock1" ).animate({"height" : 55 + "%"}, 500).animate({"height" : 10 + "%"}, 300);
-  $( "#lock2" ).animate({"height" : 45 + "%"}, 500).animate({"height" : 10 + "%"}, 300);
+  $( "#lock1" ).animate({"height" : 55 + "%"}, 5).animate({"height" : 10 + "%"}, 300);
+  $( "#lock2" ).animate({"height" : 45 + "%"}, 5).animate({"height" : 10 + "%"}, 300);
   $( "#iris" ).animate({"height" : irisSize, "width": irisSize}, 1200);
 });
