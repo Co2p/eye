@@ -6,7 +6,6 @@ $("body").on("mousemove", (event) => {
   let y = event.pageY;
   $('body').css('cursor', 'none');
   $( "#iris" ).css({ "top": y - (irisSize/2), "left": x - (irisSize/2)});
-
 });
 
 $("body").on("scroll touchmove mousewheel", (event) => {
@@ -17,15 +16,18 @@ $("body").on("scroll touchmove mousewheel", (event) => {
   if (event.originalEvent.wheelDelta >= 0) {
     irisSize = irisSize + 10;
   } else {
-    irisSize = irisSize - 10;
+    if (irisSize > 20) {
+      irisSize = irisSize - 10;
+    }
   }
-  console.log(irisSize);
-  $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px"}, 20);
+  let x = event.pageX;
+  let y = event.pageY;
+  $('body').css('cursor', 'none');
+  $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 20);
   }
 });
 
 $("body").on("mousedown", (event) => {
-  console.log(event);
   $( "#lock1" ).animate({"height" : 55 + "%"}, 500);
   $( "#lock2" ).animate({"height" : 45 + "%"}, 500);
 });
