@@ -17,12 +17,12 @@ body {
   position: absolute;
 }
 
-#lock1 {
+#toplid {
   background: linear-gradient(#272d21, #2f4d29);
   height: 55%;
 }
 
-#lock2 {
+#bottomlid {
   background: linear-gradient(#2f4d29, #272d21);
   height: 45%;
   bottom: 0;
@@ -37,13 +37,4 @@ body {
   width:100vh;
   height: 100vh;
   border-radius:50%;
-}
-
-#shine {
-  height: 30px;
-  width: 30px;
-  background: rgba(255, 255, 255, 0.42);
-  float: right;
-  margin: 15px;
-  border-radius: 15px;
 }
