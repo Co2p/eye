@@ -6,10 +6,7 @@ body {
   margin: 0;
   cursor: none;
   overflow: hidden;
-}
-
-#main {
-  background: radial-gradient(#339437, #2c714a);
+  background: radial-gradient(#339437, #244a34);
   height: 100%;
 }
 
@@ -33,12 +30,12 @@ body {
 
 #iris {
   z-index: 0;
-  background: black;
+  background: radial-gradient(#000, #000, #17251a, #16a145);
   position: absolute;
   top: 50%;
   left: 50%;
-  width:700px;
-  height:700px;
+  width:100vh;
+  height: 100vh;
   border-radius:50%;
 }
 
