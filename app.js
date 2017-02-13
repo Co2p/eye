@@ -12,18 +12,18 @@ $("body").on("scroll touchmove mousewheel", (event) => {
   const stamp = event.timeStamp
   const size = $("#iris").css("height");
   if (stamp - oldstamp > 20) {
-  oldstamp = stamp
-  if (event.originalEvent.wheelDelta >= 0) {
-    irisSize = irisSize + 10;
-  } else {
-    if (irisSize > 20) {
-      irisSize = irisSize - 10;
+    oldstamp = stamp
+    if (event.originalEvent.wheelDelta >= 0) {
+      irisSize = irisSize + 10;
+    } else {
+      if (irisSize > 20) {
+        irisSize = irisSize - 10;
+      }
     }
-  }
-  let x = event.pageX;
-  let y = event.pageY;
-  $('body').css('cursor', 'none');
-  $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 20);
+    let x = event.pageX;
+    let y = event.pageY;
+    $('body').css('cursor', 'none');
+    $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 20);
   }
 });
 

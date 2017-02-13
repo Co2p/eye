@@ -40,10 +40,10 @@ body {
 }
 
 #shine {
-    height: 30px;
-    width: 30px;
-    background: rgba(255, 255, 255, 0.42);
-    float: right;
-    margin: 15px;
-    border-radius: 15px;
+  height: 30px;
+  width: 30px;
+  background: rgba(255, 255, 255, 0.42);
+  float: right;
+  margin: 15px;
+  border-radius: 15px;
 }
