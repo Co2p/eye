@@ -6,7 +6,7 @@ body {
   margin: 0;
   cursor: none;
   overflow: hidden;
-  background: radial-gradient(#339437, #244a34);
+  background: #1ba254;
   height: 100%;
 }
 
@@ -17,19 +17,28 @@ body {
   position: absolute;
 }
 
-#toplid {
-  background: linear-gradient(#272d21, #2f4d29);
+#blackness {
+  z-index: 101;
+  background: #000;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 1;
+}
+
+#lock1 {
+  background: linear-gradient(#2d2128, #4d293b);
   height: 55%;
 }
 
-#bottomlid {
-  background: linear-gradient(#2f4d29, #272d21);
+#lock2 {
+  background: linear-gradient(#4d2939, #2d2128);
   height: 45%;
   bottom: 0;
 }
 
 #iris {
-  z-index: 0;
+  z-index: 1;
   background: radial-gradient(#000, #000, #17251a, #16a145);
   position: absolute;
   top: 50%;
@@ -37,4 +46,13 @@ body {
   width:100vh;
   height: 100vh;
   border-radius:50%;
+}
+
+#shine {
+  background: radial-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.35));
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 1;
 }

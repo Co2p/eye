@@ -1,92 +1,67 @@
-"use-strict";
-const defaults = {'irisSize': 300, 'irisMinSize': 10, 'irisStepSize': 200, 'irisFocusTime': 1200,
-                  'lidCloseSpeed': 500, 'lidOpenSpeed': 300, 'toplidOpenPos': 10, 'toplidClosedPos': 55, 'bottomlidOpenPos': 10, 'bottomlidClosedPos': 45,
-                    'colors':{'lid1': '#272d21', 'lid2': ' #4d2929', 'center': '#943333', 'rim': '#244a34'}};
-
 var oldstamp = 0;
-
-function init() {
-    if (Cookies.get('eye_defaults')) {
-        defaults = Cookies.get('eye_defaults');
-    }
-}
-
-function scaleIris(event) {
-    if (event.originalEvent.wheelDelta >= 0) {
-        defaults.irisSize = defaults.irisSize + defaults.irisStepSize;
-    } else {
-        if (defaults.irisSize > defaults.irisMinSize) {
-            defaults.irisSize = defaults.irisSize - defaults.irisStepSize;
-        }
-        if (defaults.irisSize < defaults.irisMinSize) {
-            defaults.irisSize = defaults.irisMinSize;
-        }
-    }
-    let x = event.pageX;
-    let y = event.pageY;
-    $('body').css('cursor', 'none');
-    $( "#iris" ).animate({"height" : defaults.irisSize, "width": defaults.irisSize, "top": y - (defaults.irisSize/2), "left": x - (defaults.irisSize/2)}, 700);
-}
-
-function closeEye(event) {
-    let top = $( "#toplid" ).css('height');
-    let bottom = $( "#bottomlid" ).css('height');
-    let height = $(window).height();
-    top = top.substring(0, top.length - 2);
-    bottom = bottom.substring(0, top.length - 2);
-    console.log(top + ' ' + bottom);
-
-    if (event.originalEvent.wheelDelta >= 0) {
-        if (top < (height * defaults.toplidClosedPos/100)) {
-            top = top + 5;
-        }
-        if (bottom < (height * defaults.bottomlidClosedPos/100)) {
-            bottom = bottom + 5;
-        }
-    } else {
-        if (top > (height * defaults.toplidOpenPos/100)) {
-            top = top - 5;
-        } else {
-            top = (height * defaults.toplidOpenPos/100);
-        }
-        if (bottom > (height * defaults.bottomlidOpenPos/100)) {
-            bottom = bottom - 5;
-        } else {
-            bottom = (height * defaults.bottomlidOpenPos/100);
-        }
-    }
-    console.log(top + ' ' + bottom);
-
-    $( "#toplid" ).animate({"height" : top}, 20);
-    $( "#bottomlid" ).animate({"height" : bottom}, 20);
-}
+var irisSize = 300;
+var customColor = false;
+var defaultColor = "#1ba254";
+var eyeanim = false;
 
 $("body").on("mousemove", (event) => {
-    let x = event.pageX;
-    let y = event.pageY;
-    $('body').css('cursor', 'none');
-    $( "#iris" ).css({ "top": y - (defaults.irisSize/2), "left": x - (defaults.irisSize/2)});
+  let x = event.pageX;
+  let y = event.pageY;
+  $('body').css('cursor', 'none');
+  $( "#iris" ).css({ "top": y - (irisSize/2), "left": x - (irisSize/2)});
 });
 
 $("body").on("scroll touchmove mousewheel", (event) => {
-    const stamp = event.timeStamp;
-    if (stamp - oldstamp > 20) {
-        oldstamp = stamp
-        if (event.altKey) {
-            closeEye(event);
-        } else {
-            scaleIris(event);
-        }
+  const stamp = event.timeStamp
+  const size = $("#iris").css("height");
+  if (stamp - oldstamp > 20) {
+    oldstamp = stamp
+    if (event.originalEvent.wheelDelta >= 0) {
+      irisSize = irisSize + 10;
+    } else {
+      if (irisSize > 20) {
+        irisSize = irisSize - 10;
+      }
     }
+    let x = event.pageX;
+    let y = event.pageY;
+    $('body').css('cursor', 'none');
+    $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 10);
+  }
 });
 
 $("body").on("mousedown", (event) => {
-    $( "#toplid" ).animate({"height" : defaults.toplidClosedPos + "%"}, defaults.lidCloseSpeed);
-    $( "#bottomlid" ).animate({"height" : defaults.bottomlidClosedPos + "%"}, defaults.lidCloseSpeed);
+
+  $( "#lock1" ).animate({"height" : 55 + "%"}, 500);
+  $( "#lock2" ).animate({"height" : 45 + "%"}, 500);
 });
 
 $("body").on("click", (event) => {
-    $( "#toplid" ).animate({"height" : defaults.toplidClosedPos + "%"}, 1).animate({"height" : defaults.toplidOpenPos + "%"}, defaults.lidOpenSpeed);
-    $( "#bottomlid" ).animate({"height" : defaults.bottomlidClosedPos + "%"}, 1).animate({"height" : defaults.bottomlidOpenPos + "%"}, defaults.lidOpenSpeed);
-    $( "#iris" ).animate({"height" : defaults.irisSize, "width": defaults.irisSize}, defaults.irisFocusTime);
+  if (!eyeanim) {
+    eyeanim = true;
+    $( "#lock1" ).animate({"height" : 55 + "%"}, 5).animate({"height" : 10 + "%"}, 300);
+    $( "#lock2" ).animate({"height" : 45 + "%"}, 5).animate({"height" : 10 + "%"}, 300).after(() => {
+      eyeanim = false;
+      console.log('hi');
+    });
+    $( "#iris" ).animate({"height" : irisSize, "width": irisSize}, 1200);
+    $("#blackness").animate({"opacity" : 0}, 300);
+  }
+
+});
+
+$("body").on("keydown", (event) => {
+  if (event.key === 'r') {
+    window.location.reload();
+  } else if (!customColor) {
+    customColor = true;
+    if (event.key === '1') {
+      $("body").css("background", "#a71c1c");
+    } else if (event.key === '2') {
+      $("body").css("background", "##f98484");
+    }
+  } else {
+    customColor = false;
+    $("body").css("background", "#1ba254");
+  }
 });
