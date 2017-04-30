@@ -27,12 +27,12 @@ body {
 }
 
 #lock1 {
-  background: linear-gradient(#2d2128, #4d293b);
+  background: linear-gradient(#2d2128, #610e0e);
   height: 55%;
 }
 
 #lock2 {
-  background: linear-gradient(#4d2939, #2d2128);
+  background: linear-gradient(#420000, #270000);
   height: 45%;
   bottom: 0;
 }

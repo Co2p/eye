@@ -4,6 +4,9 @@ var customColor = false;
 var defaultColor = "#1ba254";
 var eyeanim = false;
 var squint = false;
+var squinttop = false;
+var squintbot = false;
+
 
 $("body").on("mousemove", (event) => {
   let x = event.pageX;
@@ -52,14 +55,32 @@ $("body").on("keydown", (event) => {
   if (event.key === 'r') {
     window.location.reload();
   } else if (event.key === 's') {
-    if (squint) {
+    if (squint || (squinttop && squintbot)) {
       $( "#lock1" ).animate({"height" : 10 + "%"}, 300);
       $( "#lock2" ).animate({"height" : 10 + "%"}, 300);
       squint = false;
+      squinttop = false;
+      squintbot = false;
     } else {
       $( "#lock1" ).animate({"height" : 45 + "%"}, 500);
       $( "#lock2" ).animate({"height" : 35 + "%"}, 500);
       squint = true;
+    }
+  } else if (event.key === 'a') {
+    if (squinttop) {
+      $( "#lock1" ).animate({"height" : 10 + "%"}, 300);
+      squinttop = false;
+    } else {
+      $( "#lock1" ).animate({"height" : 45 + "%"}, 500);
+      squinttop = true;
+    }
+  } else if (event.key === 'd') {
+    if (squintbot) {
+      $( "#lock2" ).animate({"height" : 10 + "%"}, 300);
+      squintbot = false;
+    } else {
+      $( "#lock2" ).animate({"height" : 35 + "%"}, 500);
+      squintbot = true;
     }
   } else if (!customColor) {
     customColor = true;
