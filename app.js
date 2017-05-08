@@ -85,9 +85,11 @@ $("body").on("keydown", (event) => {
   } else if (!customColor) {
     customColor = true;
     if (event.key === '1') {
-      $("body").css("background", "#a71c1c");
+      $("body").css("background", "#a71c1c"); //redeye
     } else if (event.key === '2') {
-      $("body").css("background", "#f98484");
+      $("body").css("background", "#f98484"); //pinkeye
+    } else if (event.key === '3') {
+      $("body").css("background", "#00bcd4"); //blueeye
     }
   } else {
     customColor = false;
