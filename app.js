@@ -6,17 +6,21 @@ var eyeanim = false;
 var squint = false;
 var squinttop = false;
 var squintbot = false;
+let body = $('body');
+let iris = $('#iris');
+let lock1 = $('#lock1');
+let lock2 = $('#lock2');
 
-$("body").on("mousemove", (event) => {
+window.addEventListener("mousemove", (event) => {
   let x = event.pageX;
   let y = event.pageY;
-  $('body').css('cursor', 'none');
-  $( "#iris" ).css({ "top": y - (irisSize/2), "left": x - (irisSize/2)});
+  body.css({'cursor': 'none'});
+  iris.css({ 'top':y - (irisSize/2), 'left': x - (irisSize/2)});
 });
 
-$("body").on("scroll touchmove mousewheel", (event) => {
+window.addEventListener("scroll touchmove mousewheel", (event) => {
   const stamp = event.timeStamp
-  const size = $("#iris").css("height");
+  const size = iris.height;
   if (stamp - oldstamp > 20) {
     oldstamp = stamp
     if (event.originalEvent.wheelDelta >= 0) {
@@ -28,57 +32,60 @@ $("body").on("scroll touchmove mousewheel", (event) => {
     }
     let x = event.pageX;
     let y = event.pageY;
-    $('body').css('cursor', 'none');
-    $( "#iris" ).velocity({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 10, 'linear');
+    body.css({'cursor': 'none'});
+    $.Velocity( iris, {"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 10, 'linear');
   }
 });
 
-$("body").on("mousedown", (event) => {
-  $( "#lock1" ).velocity({"height" : 55 + "%"}, {duration: 500});
-  $( "#lock2" ).velocity({"height" : 45 + "%"}, {duration: 500});
+window.addEventListener("mousedown", (event) => {
+  $.Velocity(lock1, {"height" : 55 + "%"}, {duration: 500});
+  $.Velocity(lock2, {"height" : 45 + "%"}, {duration: 500});
 });
 
-$("body").on("click", (event) => {
+window.addEventListener("click", (event) => {
   if (!eyeanim) {
     eyeanim = true;
-    $( "#lock1" ).velocity({"height" : 55 + "%"}, {duration: 5}).velocity({"height" : 10 + "%"}, {duration: 300});
-    $( "#lock2" ).velocity({"height" : 45 + "%"}, {duration: 5}).velocity({"height" : 10 + "%"}, {duration: 300}).after(() => {
+    $.Velocity(lock1, {"height" : 55 + "%"}, {duration: 5});
+    $.Velocity(lock1, {"height" : 10 + "%"}, {duration: 300});
+    $.Velocity(lock2, {"height" : 45 + "%"}, {duration: 5});
+    $.Velocity(lock2, {"height" : 10 + "%"}, {duration: 300});
+    setTimeout(function () {
       eyeanim = false;
-    });
-    $( "#iris" ).velocity({"height" : irisSize, "width": irisSize}, {duration: 1200});
-    $("#blackness").velocity({"opacity" : 0}, {duration: 300});
+    }, 305);
+    $.Velocity(iris, {"height" : irisSize, "width": irisSize}, {duration: 1200});
+    $.Velocity(blackness, {"opacity" : 0}, {duration: 300});
   }
 });
 
-$("body").on("keydown", (event) => {
+window.addEventListener("keydown", (event) => {
   if (event.key === 'r') {
     window.location.reload();
   } else if (event.key === 's') {
     if (squint || (squinttop && squintbot)) {
-      $( "#lock1" ).velocity({"height" : 10 + "%"}, {duration: 300});
-      $( "#lock2" ).velocity({"height" : 10 + "%"}, {duration: 300});
+      $.Velocity(lock1, {"height" : 10 + "%"}, {duration: 300});
+      $.Velocity(lock2, {"height" : 10 + "%"}, {duration: 300});
       squint = false;
       squinttop = false;
       squintbot = false;
     } else {
-      $( "#lock1" ).velocity({"height" : 45 + "%"}, {duration: 500});
-      $( "#lock2" ).velocity({"height" : 35 + "%"}, {duration: 500});
+      $.Velocity(lock1, {"height" : 45 + "%"}, {duration: 500});
+      $.Velocity(lock2, {"height" : 35 + "%"}, {duration: 500});
       squint = true;
     }
   } else if (event.key === 'a') {
     if (squinttop) {
-      $( "#lock1" ).velocity({"height" : 10 + "%"}, {duration: 300});
+      $.Velocity(lock1, {"height" : 10 + "%"}, {duration: 300});
       squinttop = false;
     } else {
-      $( "#lock1" ).velocity({"height" : 45 + "%"}, {duration: 300});
+      $.Velocity(lock1, {"height" : 45 + "%"}, {duration: 300});
       squinttop = true;
     }
   } else if (event.key === 'd') {
     if (squintbot) {
-      $( "#lock2" ).velocity({"height" : 10 + "%"}, {duration: 300});
+      $.Velocity(lock2, {"height" : 10 + "%"}, {duration: 300});
       squintbot = false;
     } else {
-      $( "#lock2" ).velocity({"height" : 35 + "%"}, {duration: 300});
+      $.Velocity(lock2, {"height" : 35 + "%"}, {duration: 300});
       squintbot = true;
     }
   } else if (!customColor) {
@@ -96,6 +103,6 @@ $("body").on("keydown", (event) => {
   }
 });
 
-$('#hint').velocity({opacity: 0}, {duration: 0})
-.velocity({opacity: 1}, {duration: 3000})
-.velocity({opacity: 0}, {duration: 1200});
+$.Velocity($('#hint'), {opacity: 0}, {duration: 0});
+$.Velocity($('#hint'), {opacity: 1}, {duration: 3000});
+$.Velocity($('#hint'), {opacity: 0}, {duration: 1200});
