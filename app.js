@@ -7,7 +7,6 @@ var squint = false;
 var squinttop = false;
 var squintbot = false;
 
-
 $("body").on("mousemove", (event) => {
   let x = event.pageX;
   let y = event.pageY;
@@ -30,24 +29,24 @@ $("body").on("scroll touchmove mousewheel", (event) => {
     let x = event.pageX;
     let y = event.pageY;
     $('body').css('cursor', 'none');
-    $( "#iris" ).animate({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 10, 'linear');
+    $( "#iris" ).velocity({"height" : irisSize + "px", "width": irisSize + "px", "top": y - (irisSize/2), "left": x - (irisSize/2)}, 10, 'linear');
   }
 });
 
 $("body").on("mousedown", (event) => {
-  $( "#lock1" ).animate({"height" : 55 + "%"}, 500);
-  $( "#lock2" ).animate({"height" : 45 + "%"}, 500);
+  $( "#lock1" ).velocity({"height" : 55 + "%"}, {duration: 500});
+  $( "#lock2" ).velocity({"height" : 45 + "%"}, {duration: 500});
 });
 
 $("body").on("click", (event) => {
   if (!eyeanim) {
     eyeanim = true;
-    $( "#lock1" ).animate({"height" : 55 + "%"}, 5).animate({"height" : 10 + "%"}, 300);
-    $( "#lock2" ).animate({"height" : 45 + "%"}, 5).animate({"height" : 10 + "%"}, 300).after(() => {
+    $( "#lock1" ).velocity({"height" : 55 + "%"}, {duration: 5}).velocity({"height" : 10 + "%"}, {duration: 300});
+    $( "#lock2" ).velocity({"height" : 45 + "%"}, {duration: 5}).velocity({"height" : 10 + "%"}, {duration: 300}).after(() => {
       eyeanim = false;
     });
-    $( "#iris" ).animate({"height" : irisSize, "width": irisSize}, 1200);
-    $("#blackness").animate({"opacity" : 0}, 300);
+    $( "#iris" ).velocity({"height" : irisSize, "width": irisSize}, {duration: 1200});
+    $("#blackness").velocity({"opacity" : 0}, {duration: 300});
   }
 });
 
@@ -56,36 +55,36 @@ $("body").on("keydown", (event) => {
     window.location.reload();
   } else if (event.key === 's') {
     if (squint || (squinttop && squintbot)) {
-      $( "#lock1" ).animate({"height" : 10 + "%"}, 300);
-      $( "#lock2" ).animate({"height" : 10 + "%"}, 300);
+      $( "#lock1" ).velocity({"height" : 10 + "%"}, {duration: 300});
+      $( "#lock2" ).velocity({"height" : 10 + "%"}, {duration: 300});
       squint = false;
       squinttop = false;
       squintbot = false;
     } else {
-      $( "#lock1" ).animate({"height" : 45 + "%"}, 500);
-      $( "#lock2" ).animate({"height" : 35 + "%"}, 500);
+      $( "#lock1" ).velocity({"height" : 45 + "%"}, {duration: 500});
+      $( "#lock2" ).velocity({"height" : 35 + "%"}, {duration: 500});
       squint = true;
     }
   } else if (event.key === 'a') {
     if (squinttop) {
-      $( "#lock1" ).animate({"height" : 10 + "%"}, 300);
+      $( "#lock1" ).velocity({"height" : 10 + "%"}, {duration: 300});
       squinttop = false;
     } else {
-      $( "#lock1" ).animate({"height" : 45 + "%"}, 500);
+      $( "#lock1" ).velocity({"height" : 45 + "%"}, {duration: 300});
       squinttop = true;
     }
   } else if (event.key === 'd') {
     if (squintbot) {
-      $( "#lock2" ).animate({"height" : 10 + "%"}, 300);
+      $( "#lock2" ).velocity({"height" : 10 + "%"}, {duration: 300});
       squintbot = false;
     } else {
-      $( "#lock2" ).animate({"height" : 35 + "%"}, 500);
+      $( "#lock2" ).velocity({"height" : 35 + "%"}, {duration: 300});
       squintbot = true;
     }
   } else if (!customColor) {
     customColor = true;
     if (event.key === '1') {
-      $("body").css("background", "#a71c1c"); //redeye
+      $("body").css({"background": "#a71c1c"}); //redeye
     } else if (event.key === '2') {
       $("body").css("background", "#f98484"); //pinkeye
     } else if (event.key === '3') {
@@ -96,3 +95,7 @@ $("body").on("keydown", (event) => {
     $("body").css("background", "#1ba254");
   }
 });
+
+$('#hint').velocity({opacity: 0}, {duration: 0})
+.velocity({opacity: 1}, {duration: 3000})
+.velocity({opacity: 0}, {duration: 1200});
